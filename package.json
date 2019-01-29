@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "morgan": "^1.9.1",
     "should": "^13.2.3",
@@ -13,7 +14,7 @@
     "mocha": "5.2.0"
   },
   "scripts": {
-    "test": "echo \"ERROR: no test specified\" && exit 1",
+    "test": "cd NODE_API && mocha index.spec.js",
     "start": "node index.js"
   },
   "author": "",
