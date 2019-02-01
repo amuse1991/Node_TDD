@@ -7,14 +7,16 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "morgan": "^1.9.1",
+    "sequelize": "^4.42.0",
     "should": "^13.2.3",
+    "sqlite3": "^4.0.6",
     "supertest": "^3.4.2"
   },
   "devDependencies": {
     "mocha": "5.2.0"
   },
   "scripts": {
-    "test": "set NODE_ENV=test && mocha NODE_API/api/user/user.spec.js",
+    "test": "set NODE_ENV=test && mocha NODE_API/api/user/user.spec.js -w",
     "start": "node NODE_API/bin/www.js"
   },
   "author": "",
