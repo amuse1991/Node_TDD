@@ -1,7 +1,7 @@
 // supertest 코드
 const request = require("supertest");
 const should = require("should");
-const app = require("./index");
+const app = require("../../index");
 
 // 사용자 조회
 describe('GET /users는',()=>{

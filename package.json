@@ -14,8 +14,8 @@
     "mocha": "5.2.0"
   },
   "scripts": {
-    "test": "cd NODE_API && mocha index.spec.js",
-    "start": "node index.js"
+    "test": "set NODE_ENV=test && mocha NODE_API/api/user/user.spec.js",
+    "start": "node NODE_API/bin/www.js"
   },
   "author": "",
   "license": "ISC"
