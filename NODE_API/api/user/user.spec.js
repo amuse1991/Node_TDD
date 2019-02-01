@@ -2,10 +2,22 @@
 const request = require("supertest");
 const should = require("should");
 const app = require("../../index");
+const models = require("../../../models");
 
 // 사용자 조회
 describe('GET /users는',()=>{
-    //성공 케이스
+    // 샘플 데이터
+    const users = [
+        {name:'alice'},
+        {name:'bek'},
+        {name:'chris'}
+    ]
+    // db 초기화
+    before(()=> models.sequelize.sync({force:true}));
+    // 샘플 데이터 삽입
+    before(()=>models.User.bulkCreate(users));
+
+    // 성공 케이스
     describe('성공시',()=>{
         it('유저 객체를 담은 배열로 응답한다',(done)=>{
             request(app) // supertest에 express 객체 전달
@@ -42,6 +54,14 @@ describe('GET /users는',()=>{
 })
 
 describe('GET /users/1는',()=>{
+    const users = [
+        {name:'alice'},
+        {name:'bek'},
+        {name:'chris'}
+    ]
+    before(()=> models.sequelize.sync({force:true}));
+    before(()=>models.User.bulkCreate(users));
+
     describe("성공시",()=>{
         it("id가 1인 유저 객체를 반환한다",(done)=>{
             request(app)
@@ -71,6 +91,13 @@ describe('GET /users/1는',()=>{
 
 // 사용자 삭제
 describe('DELETE /users/1', ()=>{
+    const users = [
+        {name:'alice'},
+        {name:'bek'},
+        {name:'chris'}
+    ]
+    before(()=> models.sequelize.sync({force:true}));
+    before(()=>models.User.bulkCreate(users));
     describe("성공시",()=>{
         it("204를 응답한다",(done)=>{
             request(app)
@@ -91,6 +118,13 @@ describe('DELETE /users/1', ()=>{
 
 // 사용자 추가
 describe('POST /users',()=>{
+    const users = [
+        {name:'alice'},
+        {name:'bek'},
+        {name:'chris'}
+    ]
+    before(()=> models.sequelize.sync({force:true}));
+    before(()=>models.User.bulkCreate(users));
     describe("성공시", ()=>{
         // 테스트 케이스 동작 전 실행되는 함수
         var name = "daniel",
@@ -134,6 +168,13 @@ describe('POST /users',()=>{
 
 // 사용자 수정
 describe("PUT /users/:id",()=>{
+    const users = [
+        {name:'alice'},
+        {name:'bek'},
+        {name:'chris'}
+    ]
+    before(()=> models.sequelize.sync({force:true}));
+    before(()=>models.User.bulkCreate(users));
     describe("성공시",()=>{
         it("변경된 name을 응답한다",(done)=>{
             const name = "den;"
@@ -170,7 +211,7 @@ describe("PUT /users/:id",()=>{
         it("이름이 중복일 경우 409를 응답한다",done=>{
             request(app)
                 .put("/users/3")
-                .send({name: 'chris'})
+                .send({name: 'bek'})
                 .expect(409)
                 .end(done);
         })
